@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "8ac2558a-1f70-4d97-92c2-061b026ba0b8",
+		"name": "Transbank Test v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/people/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8774ac4b-4935-40f6-b9f5-45e6bc9060ca",
+						"exec": [
+							"//verificar que se crea exitosamente el usuario devolviendo el status correcto\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"//Verificar que se cree el usuario con el campo 'firstMane'\r",
+							"pm.test(\"Verify firstMame\", function () { \r",
+							"        pm.expect(jsonData.data.firstMame).is.to.equal(\"Gabriel\"); \r",
+							"    });\r",
+							"\r",
+							"//Verificar que se cree el usuario con el campo 'lastName' \r",
+							"pm.test(\"Verify lastName\", function () { \r",
+							"        pm.expect(jsonData.data.lastName).is.to.equal(\"Fuentes\"); \r",
+							"    });\r",
+							"\r",
+							"//Verificar que se cree el usuario con el campo 'age'\r",
+							"pm.test(\"Verify age\", function () { \r",
+							"        pm.expect(jsonData.data.age).is.to.equal(11); \r",
+							"    });   \r",
+							"\r",
+							"// Verificar que se crea el usuario con un campo adicional 'id'\r",
+							"pm.test(\"Verify Body contain id\", function () {\r",
+							"    pm.response.to.have.body(\"id\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"firstMame\": \"Gabriel\",\n        \"lastName\": \"Fuentes\",\n        \"age\": 11\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/people/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"people",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
